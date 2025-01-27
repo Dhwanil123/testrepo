@@ -11,9 +11,14 @@ app.use(express.json());
 
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 50000,  // Increase timeout duration to 50 seconds
+  })
   .then(() => console.log("Connected to MongoDB"))
-  .catch(err => console.error("Could not connect to MongoDB", err));
+  .catch((err) => console.error("MongoDB connection error:", err));
 
   app.use("/api/items", itemRoutes);
 
