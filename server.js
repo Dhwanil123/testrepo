@@ -8,6 +8,7 @@ const app = express();
 app.use(express.json());
 
 
+console.log("MongoDB URI:", process.env.MONGO_URI);
 
 
 // MongoDB connection
