@@ -15,7 +15,7 @@ router.post('/save-profile', async (req, res) => {
   try {
     // Fetch data from Karza API
     const response = await axios.post(
-      'https://api.karza.in/scan/test/gstprofile',
+      'https://api.karza.in/kscan/test/v3/gst-profile',
       { id },
       {
         headers: {
