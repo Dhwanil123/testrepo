@@ -116,7 +116,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const gstProfileRoutes = require('./routes/gstProfileRoutes');
-const epfDetailsRoutes = require('./routes/epfDetailsRoutes')
+const epfDetailsRoutes = require('./routes/epfDetailsRoutes');
+const saveDataRoutes = require('./routes/saveDataRoute');
 
 // Load environment variables
 dotenv.config();
@@ -132,6 +133,7 @@ app.use('/api', gstProfileRoutes);
 
 app.use('/api', epfDetailsRoutes);
 
+app.use('/api', saveDataRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;
