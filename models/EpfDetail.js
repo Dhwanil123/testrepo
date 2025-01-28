@@ -112,6 +112,5 @@ const EpfDetailSchema = new mongoose.Schema(
     { timestamps: true }
   );
 
-
   module.exports = mongoose.model('EpfDetail', EpfDetailSchema);
   
