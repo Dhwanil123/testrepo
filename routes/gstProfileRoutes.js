@@ -6,10 +6,10 @@ const router = express.Router();
 
 // POST endpoint to save GST profile
 router.post('/save-profile', async (req, res) => {
-  const { id, name, city } = req.body;
+  const { id } = req.body;
 
-  if (!id || !name || !city) {
-    return res.status(400).json({ error: 'id, name, and city are required' });
+  if (!id ) {
+    return res.status(400).json({ error: 'id is required' });
   }
 
   try {
@@ -26,24 +26,11 @@ router.post('/save-profile', async (req, res) => {
     );
 
     const result = response.data.result[0];
-    // const profileData = {
-    //   kid: id,
-    //   name,
-    //   city,
-    //   gstin: result.gstin,
-    //   address: result.address,
-    //   aggregateTurnover: result.aggregateTurnover,
-    //   dateOfRegistration: result.dateOfRegistration,
-    //   status: result.status,
-    //   natureOfBusiness: result.natureOfBusiness,
-    //   signatories: result.signatories,
-    // };
+   
 
 
     const profileData = {
       kid: id || "",
-      name: name || "",
-      city: city || "",
       gstin: result.gstin || "",
       address: result.address || "",
       aggregateTurnover: result.aggregateTurnover || "",
@@ -76,3 +63,21 @@ module.exports = router;
 
 
 //https://testrepo-1-nn5j.onrender.com/api/save-profile
+
+
+
+
+
+
+ // const profileData = {
+    //   kid: id,
+    //   name,
+    //   city,
+    //   gstin: result.gstin,
+    //   address: result.address,
+    //   aggregateTurnover: result.aggregateTurnover,
+    //   dateOfRegistration: result.dateOfRegistration,
+    //   status: result.status,
+    //   natureOfBusiness: result.natureOfBusiness,
+    //   signatories: result.signatories,
+    // };
