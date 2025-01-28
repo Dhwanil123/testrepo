@@ -4,6 +4,7 @@ const GstProfile = require('../models/GstProfile');
 
 const router = express.Router();
 
+// POST endpoint to save GST profile
 router.post('/save-profile', async (req, res) => {
   const { id, name, city } = req.body;
 
@@ -12,6 +13,7 @@ router.post('/save-profile', async (req, res) => {
   }
 
   try {
+    // Fetch data from Karza API
     const response = await axios.post(
       'https://api.karza.in/kscan/test/v3/gst-profile',
       { id },
@@ -23,7 +25,7 @@ router.post('/save-profile', async (req, res) => {
       }
     );
 
-    // const result = response.data.result[0];
+    const result = response.data.result[0];
     // const profileData = {
     //   kid: id,
     //   name,
@@ -39,26 +41,26 @@ router.post('/save-profile', async (req, res) => {
 
 
     const profileData = {
-      requestId: response.data.requestId,
-      kid: id,
-      name,
-      city,
-      gstin: result.gstin,
-      address: result.address,
-      aggregateTurnover: result.aggregateTurnover,
+      kid: id || "",
+      name: name || "",
+      city: city || "",
+      gstin: result.gstin || "",
+      address: result.address || "",
+      aggregateTurnover: result.aggregateTurnover || "",
       aggregateTurnovers: result.aggregateTurnovers || [],
       branches: result.branches || [],
-      dateOfRegistration: result.dateOfRegistration,
-      status: result.status,
+      dateOfRegistration: result.dateOfRegistration || null,
+      status: result.status || "",
       natureOfBusiness: result.natureOfBusiness || [],
       signatories: result.signatories || [],
       signatoriesContact: result.signatoriesContact || [],
       filingFrequencies: result.filingFrequencies || [],
       goodsDetails: result.goodsDetails || [],
       grossTotalIncomes: result.grossTotalIncomes || [],
-      timestamp: result.timestamp,
-      complianceRating: result.complianceRating,
+      timestamp: result.timestamp || null,
     };
+
+    // Save to MongoDB
     const gstProfile = new GstProfile(profileData);
     await gstProfile.save();
 
